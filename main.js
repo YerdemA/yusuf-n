@@ -2,14 +2,24 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebas
 import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
 
-// --- FIREBASE AYARLARI ---
+// ============================================================
+//  KİŞİSEL AYARLAR — Buradan kolayca özelleştirebilirsiniz!
+// ============================================================
+
+// 🔐 Giriş Şifresi
+const APP_PASSWORD = 'Terlik.123'; // <-- Şifreyi buradan değiştirin
+
+// ✉️ Zarf Başlıkları
+const LETTER_1_LABEL = 'Sana Bir Not'; // <-- 1. zarfın etiketi
+const LETTER_2_LABEL = 'Bizden Bir Parça'; // <-- 2. zarfın etiketi
+
 const firebaseConfig = {
-    apiKey: "AIzaSyBmbXkm6bvdR5a0asSfj6wMkcaLqdEG7Ns",
-    authDomain: "derapp16-a93c8.firebaseapp.com",
-    projectId: "derapp16-a93c8",
-    storageBucket: "derapp16-a93c8.firebasestorage.app",
-    messagingSenderId: "89998763932",
-    appId: "1:89998763932:web:10b0311311d240d7d64a59"
+    apiKey: "AIzaSyAgm5GXyG3LK6H6SMpsRq5-NGQBiDPi9x4",
+    authDomain: "yusuf-11c7a.firebaseapp.com",
+    projectId: "yusuf-11c7a",
+    storageBucket: "yusuf-11c7a.firebasestorage.app",
+    messagingSenderId: "852712849682",
+    appId: "1:852712849682:web:b76a11f1a25fa15542b3cb"
 };
 
 // Firebase Başlatma
@@ -29,16 +39,16 @@ try {
 // --- MÜZİK MOTORU ---
 const playlist = [
     {
-        title: "Pilli Bebek - Kızım",
-        url: "kizim.mp3"
+        title: "Yaşlı Amca - Giderdi Hoşuma",
+        url: "yasli.mp3"
     },
     {
-        title: "Yalın - Küçücüğüm",
-        url: "kucucugum.mp3"
+        title: "İkiye On Kala - Bütün İstanbul Biliyo",
+        url: "istanbul.mp3"
     },
     {
-        title: "Dedüblüman - Sen Bilmezsin",
-        url: "senbilmezsin.mp3"
+        title: "Görkem Sağlam - Hayatımın Nakaratı",
+        url: "nakarat.mp3"
     }
 ];
 
@@ -66,7 +76,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     loginBtn.addEventListener('click', () => {
         const val = loginInput.value.trim().toLowerCase();
-        if (val === 'nostalji') {
+        if (val === APP_PASSWORD.toLowerCase()) {
             // Başarılı
             gsap.to(sceneLogin, {
                 duration: 1,
@@ -91,6 +101,12 @@ window.addEventListener('DOMContentLoaded', () => {
 
     musicTitle.innerText = playlist[currentTrackIndex].title;
     audioObj.src = playlist[currentTrackIndex].url;
+
+    // Zarf etiketlerini değişkenlerden ayarla
+    const label1 = document.getElementById('label-1');
+    const label2 = document.getElementById('label-2');
+    if (label1) label1.innerText = LETTER_1_LABEL;
+    if (label2) label2.innerText = LETTER_2_LABEL;
 
     // Veritabanını dinlemeye başla (Eğer DB varsa)
     if (db) {
@@ -154,42 +170,44 @@ audioObj.addEventListener('error', (e) => {
 // --- İÇERİK YÖNETİMİ ---
 const letterContent = {
     letter1: `
-        <strong>Affına sığınışım</strong>
-        Sana uzun uzun dile getirdim ama pişmanlığım bu satırlarda da hayat bulsun istedim.
-        Bu parşömenden alan mürekkepte belki daha iyi görürsün utancımı.
-        Derin'cim, malum sürecin seni ne kadar üzdüğünün, yorduğunun farkındayım.
-        Bunu telafi etmek için, seni tekrar kazanmak için, seni umursamıyor olduğumu bir daha düşünmemen ve o zamanların sana tamamen hayal ürünü gibi gelmesi için elimden geleni yapıyorum, yapacağım da.
-        Senden beni anlamanı istemek bile çok küstahça geliyor.
-        Hiçbir beklentim yok, sadece çabam var.
-        Daha iyi hissetmen için, malum süreci geride bırakmak için, seni ne kadar önemsediğimi tekrardan bilmen ve görmen için çabam var.
-        Biliyorum bu çabam er geç karşılık bulur. Bana bu güveni verdiğin için bile sana minnettarım.
-        Daha önce ikimiz de sinirliyken sana kullanmak üzere olduğum o "nankör" lafı dibine kadar palavra artık.
-        Sen kalbinle, düşüncelerinle, karşındakine verdiğin değerle bir insan harikasısın.
-        Başlı başına bir güzellik abidesisin. Umarım çokça uğraştığım ve sabahın 5ine kadar göz kırpmadan üzerine çalıştığım bu sayfa, bu minik hediye beni affetmen için güzel bir adım olur.
-        Herşey seni ne kadar sevdiğimi bilmen, kendini iyi ve özel hissetmen için.
-        Özrüme vereceğin karşılığı sitenin sağ altında bulunan tüylü kalem ikonundan mektup yazarak bana bırakabilirsin.
-        "Mühürle" butonuna bastığın anda mektubun zarfa yerleşip sitenin aşağı kısmında hayat bulacak.
-        Ben de kısa bir süre sonra buraya gelip bana yazdığın mektubu okuyor olacağım.
-        Sen her şeyden daha değerlisin, her şeyden daha önemlisin.
-        Bütün utancım, üzgünlüğüm ve çekingenliğimle senden tekrardan özür diliyorum.
-        Beni affet, sen benim hayatımda nadide bir çiçeksin.
-        Beni affet ki çiçeğim yeniden bana açsın, düşen boynu yeniden dikleşsin.
-        Benim yüzüm tekrardan gülsün. Senin gülüşün dünyadaki en güzel manzarayken o gülüşü doldurmak, kendime yapabileceğim en büyük kötülüktü. 
-        ~ Bütün utancıyla , pişmanlığıyla ve sevgisiyle merhametine sığınan Erdem.
+        <strong>Sana Bir Not</strong>
+        
+        Sevgilim,
+        
+        Bazen düşünüyorum da, insan birini sevdiğini ne zaman gerçekten anlıyor?
+
+        Belki birlikte gülerken, belki hiç konuşmadan yan yana otururken… Belki de sıradan bir günü, onunla geçirdiği için güzel bulmaya başladığında.
+
+        Bizim de böyle küçük küçük biriktirdiğimiz şeyler var. Fotoğraflar, şarkılar, konuşmalar, gülüşler, birbirimize söylediğimiz saçma şeyler ve sadece ikimizin anlayabileceği o küçük anlar…
+
+        Bu siteye baktığında aslında sadece birkaç fotoğraf ya da birkaç şarkı görme istiyorum. Her birinin arkasındaki anıyı hatırla. Çünkü benim için asıl güzel olan şey, o fotoğrafta nasıl göründüğümüz değil; o anı seninle yaşamış olmak.
+
+        Belki zaman geçecek, bazı şeyler değişecek, hayat bizi farklı yerlere götürecek. Ama umarım dönüp buraya baktığımızda aynı şeyi hissederiz:
+
+        “İyi ki o gün birbirimizi bulmuşuz.”
+
+        Seninle daha çok fotoğraf, daha çok şarkı, daha çok anı biriktirmek dileğiyle…
+
+        Ve eğer bir gün bu sayfadaki her şeyi unutursak bile, bir şeyi unutmayalım:
+
+        Ben seni, hayatımın en güzel anılarının arasına değil, hayatımın kendisine koydum.
+
+        Seni seviyorum.
     `,
 
     letter2: `
-        <strong>Benim minik Derin'im, biriciğim, birtanem, güzelim...</strong>
-        Sana bu hitaplarla seslendiğim için umarım bana kızmazsın. Umarım bu cüretkarlığımı hoş görür ve birazdan göreceklerinin hatrına bu cesaretimi bağışlarsın.
-        Biriciğim benim, sen bu dünyada benzeri olmayan bir güzelliksin. Sen bu dünyada dahası olmayan bir karaktersin. Sen bu dünyada hiçbir çaba ile elde edilemeyecek kadar yüce birşeysin. Ne mutlu bana, ne mutlu bana ki sahip olduğum bu küçücük dünyamdaki en sıradan özelliğim olan efendiliğimle seni kendime yar ettim. 
-        Minik Derin'im benim, senle ilk buluşmamızdaki o çocuksu heyecanın, utancın dün gibi aklımda. O minicik ellerini ilk tutuşum ve senin gerçekten bir bebek olduğunu anladığım ilk an dün gibi aklımda. Bir yaş daha alıyorsun bugün itibariyle. Ama sen benim gözümde hep aynı bebeksin, ağzında emziği çipil gözler ve dolgun yanaklarla masum masum bakan minik bebek. Sen şu zalim dünyada sahip olabileceğim, gözlerinin içine bakıp mutluluğuyla mutlu olabileceğim en güzel şeysin.
-        Seninle geçen her anım hayattaki en mutlu zamanlarımdı, hiçbir şey yapmadan dip dibe oturduğumuz zamanlar bile , yalnızca benim olmanın ve yanımda olmanın mutluluğunu yaşıyordum içimde. Öylesine güzelsin, öylesine iyisin, öylesine benimsin, öylesine içimdesin. 
-        Yalnızca varlığı bile mutluluğum için yeterli olan ender şeylerdensin. İyi ki varsın biriciğim benim.
-        Bu mektuba ismini veren bugün, takvim yapraklarının en anlamlı günü. 16 Aralık sadece bir tarih olmaktan öte benim için bir milat, bunu bilmelisin. Benim için birçok şeyin başlangıcı, en güzel zamanlarımın hazırlanışı, hayatıma anlam katacak olayların ilk adımı. 16 Aralıklar çok özel , 16 Aralık 2008 hepsinden daha özel. Kutlu gün, bir bebeğin (biricik bebeğimin) gözünü dünyaya açtığı gün. Keşke iyi bir şair olsaydım da varoluşuna şiirler yazabilseydim. Keşke bir müzisyen olsaydım da çipil gözlerine şarkılar yazabilseydim. Keşke bir ressam olsaydım da o mucizevi güzelliğini naçizane yeteneğimle resmedebilseydim. Ama biliyorum hiçbir şairin kalemi dayanmaz seni yazmaya , hiçbir şarkıcının mikrofonu yetmez seni anlatmaya , hiçbir ressamın boyaları dolduramaz tuvali güzelliğinle. Ne şairlik ne şarkıcılık ne de ressamlık var kanımda, eli klavyesinde bir yazılımcı olarak şuan senin için yapabileceğim en güzel şey okuduğun bu satırları daha güzel bir yerde sana sunmaktı. Elimden geleni yaptım. Umarım mutlu olmuşsundur, bunları okurken mutlu olma ihtimalin bile beni şimdiden mutlu etmeye başladı. Sen hep mutlu ol, sen hep huzurlu ol, sen hep böyle iyi ve güzel ol. Ben canını sıkacak durumları önünden kaldırmak için elimden geleni hep yapmaya çalışıyor olacağım. Umarım senin için her 16 Aralık bir öncekinden çok daha mutlu geçer. İleride konuşmuyor olsak bile kendi köşemde bir yerlerde içten içe bu kutlu günü kutluyor olacağım. Kim bilir belki sana hiç ulaşmayacak mektuplar yazıyor, belki de senin şerefine şarkılar söylüyor olacağım. O zaman öyle umut ederim ki kuşlar gelir de kulağına sesimi taklit eder ve bugünü hatırlatır. 
-        İyi ki doğdun, iyi ki varsın benim güzel Derin'im. İyi ki bu dünyadasın, iyi ki bu ülkedesin, iyi ki hiç beklemediğimiz o zamanda tahmin edilemez bir yerde rastlaştık. Milyonlarca ihtimal içinden bizi denk getiren Allah'a şükürler olsun. İyi ki dayanamayıp numaranı dolaylı yoldan istedim. Senle ilgili her şey iyi ki. İyi ki sen, iyi ki seninle. 
-        Varlığınla dünyayı güzelleştiriyorsun biriciğim ♥️
-        En yakın zamanda hediyelerini sana yüz yüze vermek dileğiyle..
-        ~ Erdemomin
+        <strong>Bizden Bir Parça</strong>
+        Sana söylemek istediğim çok büyük şeyler yok aslında.
+
+        Sadece iyi ki varsın.
+        İyi ki hayatımın bir yerinde sen varsın.
+        Ve iyi ki seni tanımışım.
+
+        Bazen hiçbir şey yapmadan bile günümü güzelleştiriyorsun.
+        Galiba en sevdiğim şey de bu..
+        Sadece sen olarak bile bana iyi gelmen🤍
+
+        Seni çok seviyorum🫠
     `
 };
 
@@ -290,37 +308,70 @@ function startSelectionAnimation() {
         }, "-=0.3");
 }
 
-// --- ZARF TIKLAMA ---
-const birthdayModal = document.getElementById('birthday-modal');
-const confettiContainer = document.getElementById('confetti-container');
+// --- HOŞ GELDİN OVERLAYY ---
+const welcomeOverlay = document.getElementById('welcome-overlay');
+const welcomeParticles = document.getElementById('welcome-particles');
+const welcomeQuote = document.getElementById('welcome-quote');
 
-function createConfetti() {
-    const colors = ['#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5', '#2196f3', '#03a9f4', '#00bcd4', '#009688', '#4caf50', '#8bc34a', '#cddc39', '#ffeb3b', '#ffc107', '#ff9800', '#ff5722'];
+// ✨ Özelleştirilebilir: 2. zarfa tıklanınca gösterilecek alıntılar
+const WELCOME_QUOTES = [
+    'Güzel şeyler acele etmez,\nbir gün aniden karşında bulursun kendini.',
+    'Her mektup,\nbir anda donmuş bir sestir.',
+    'En değerli şeyler\nkelimelerle bile tam tarif edilemez.'
+];
 
-    for (let i = 0; i < 100; i++) {
-        const confetti = document.createElement('div');
-        confetti.classList.add('confetti');
+function createSparkles() {
+    welcomeParticles.innerHTML = '';
+    const count = 60;
+    for (let i = 0; i < count; i++) {
+        const p = document.createElement('div');
+        p.classList.add('sparkle-particle');
 
-        // Rastgele Özellikler
-        const bg = colors[Math.floor(Math.random() * colors.length)];
-        const left = Math.random() * 100;
-        const animDuration = Math.random() * 3 + 2;
-        const size = Math.random() * 10 + 5;
+        const x = Math.random() * 100;
+        const y = Math.random() * 100;
+        const size = Math.random() * 5 + 2;
+        const delay = Math.random() * 2;
+        const duration = Math.random() * 3 + 2;
+        const hue = Math.random() < 0.5 ? '45' : '220';
 
-        confetti.style.backgroundColor = bg;
-        confetti.style.left = `${left}%`;
-        confetti.style.animationDuration = `${animDuration}s`;
-        confetti.style.width = `${size}px`;
-        confetti.style.height = `${size}px`;
-        confetti.style.opacity = Math.random();
+        p.style.left = `${x}%`;
+        p.style.top = `${y}%`;
+        p.style.width = `${size}px`;
+        p.style.height = `${size}px`;
+        p.style.setProperty('--sp-delay', `${delay}s`);
+        p.style.setProperty('--sp-duration', `${duration}s`);
+        p.style.setProperty('--sp-hue', hue);
 
-        confettiContainer.appendChild(confetti);
-
-        // Temizlik
-        setTimeout(() => {
-            confetti.remove();
-        }, animDuration * 1000);
+        welcomeParticles.appendChild(p);
     }
+}
+
+function triggerWelcomeSurprise(callback) {
+    const quote = WELCOME_QUOTES[Math.floor(Math.random() * WELCOME_QUOTES.length)];
+    welcomeQuote.innerHTML = quote.replace(/\n/g, '<br>');
+
+    createSparkles();
+    welcomeOverlay.classList.add('active');
+
+    // Yazıyı fade-in'le
+    gsap.fromTo(welcomeQuote,
+        { opacity: 0, y: 30, scale: 0.95 },
+        { duration: 1.2, opacity: 1, y: 0, scale: 1, ease: 'power2.out', delay: 0.4 }
+    );
+
+    // 3 sn sonra kapat ve mektubu aç
+    gsap.to(welcomeOverlay, {
+        duration: 1,
+        opacity: 0,
+        delay: 3,
+        ease: 'power2.in',
+        onComplete: () => {
+            welcomeOverlay.classList.remove('active');
+            welcomeParticles.innerHTML = '';
+            gsap.set(welcomeOverlay, { opacity: 1 }); // sıfırla
+            callback();
+        }
+    });
 }
 
 // --- ZARF TIKLAMA ---
@@ -328,41 +379,24 @@ envelopes.forEach(env => {
     env.addEventListener('click', function () {
         const letterType = this.getAttribute('data-letter');
 
-        // DOĞUM GÜNÜ SÜRPRİZİ KONTROLÜ (Sadece 16 Aralık mektubunda ve ilk tıklamada)
+        // 2. zarfa ilk tıklamada welcome sürprizi
         if (letterType === 'letter2') {
-            try {
-                // sessionStorage erişimini güvenli hale getir
-                let hasSeenBirthday = false;
-                try {
-                    hasSeenBirthday = sessionStorage.getItem('hasSeenBirthday_v3');
-                } catch (storeErr) {
-                    console.warn("Storage erişim hatası:", storeErr);
-                }
+            let hasSeen = false;
+            try { hasSeen = sessionStorage.getItem('hasSeenWelcome_v1'); } catch (e) { }
 
-                if (!hasSeenBirthday) {
-                    // Sürprizi Başlat
-                    triggerNewBirthdaySurprise(() => {
-                        // Bitişte yapılacaklar
-                        try {
-                            sessionStorage.setItem('hasSeenBirthday_v3', 'true');
-                        } catch (e) { }
+            if (!hasSeen) {
+                try { sessionStorage.setItem('hasSeenWelcome_v1', 'true'); } catch (e) { }
 
-                        // Mektubu aç
-                        currentActiveLetter = letterContent[letterType];
-                        const rect = this.getBoundingClientRect();
-                        openReadingMode(rect, currentActiveLetter);
-                    });
-
-                    return; // Standart akışı durdur
-                }
-            } catch (err) {
-                console.error("Birthday logic error:", err);
-                // Hata olursa devam et, mektubu aç
+                const rect = this.getBoundingClientRect();
+                triggerWelcomeSurprise(() => {
+                    currentActiveLetter = letterContent[letterType];
+                    openReadingMode(rect, currentActiveLetter);
+                });
+                return;
             }
         }
 
         currentActiveLetter = letterContent[letterType];
-
         const rect = this.getBoundingClientRect();
         openReadingMode(rect, currentActiveLetter);
     });
@@ -694,45 +728,62 @@ uploadTriggerBtn.addEventListener('click', () => {
     photoUploadInput.click();
 });
 
-// 3. Dosya Seçilince Yükle
+// 3. Dosya Seçilince Yükle (TOPLU - Çoklu Seçim Destekli)
 photoUploadInput.addEventListener('change', async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
+    const files = Array.from(e.target.files);
+    if (!files.length) return;
 
     if (!storage) {
         alert("Fotoğraf yükleyebilmek için Firebase Storage etkinleştirilmelidir.");
         return;
     }
 
-    try {
-        uploadTriggerBtn.innerText = "Yükleniyor...";
-        uploadTriggerBtn.classList.add('loading');
+    const total = files.length;
+    let done = 0;
 
-        // Dosya adı uniq olsun
-        const uniqueName = "photo_" + Date.now() + "_" + file.name;
+    uploadTriggerBtn.classList.add('loading');
+    uploadTriggerBtn.innerText = `Yükleniyor 0/${total}`;
+
+    // Her dosyayı paralel yükle
+    const uploadPromises = files.map(async (file) => {
+        const uniqueName = `photo_${Date.now()}_${Math.random().toString(36).slice(2)}_${file.name}`;
         const storageRef = ref(storage, 'photos/' + uniqueName);
 
-        // Yükle
-        await uploadBytes(storageRef, file);
-        const downloadUrl = await getDownloadURL(storageRef);
+        try {
+            await uploadBytes(storageRef, file);
+            const downloadUrl = await getDownloadURL(storageRef);
 
-        // Firestore'a kaydet
-        await addDoc(collection(db, "photos"), {
-            url: downloadUrl,
-            storagePath: 'photos/' + uniqueName,
-            createdAt: serverTimestamp()
-        });
+            await addDoc(collection(db, "photos"), {
+                url: downloadUrl,
+                storagePath: 'photos/' + uniqueName,
+                createdAt: serverTimestamp()
+            });
 
-        alert("Fotoğraf başarıyla eklendi!");
+            done++;
+            uploadTriggerBtn.innerText = `Yükleniyor ${done}/${total}`;
+        } catch (err) {
+            console.error(`"${file.name}" yüklenemedi:`, err);
+            done++;
+            uploadTriggerBtn.innerText = `Yükleniyor ${done}/${total}`;
+            throw err;
+        }
+    });
 
-    } catch (err) {
-        console.error("Yükleme hatası:", err);
-        alert("Bir hata oluştu: " + err.message);
-    } finally {
+    const results = await Promise.allSettled(uploadPromises);
+    const failed = results.filter(r => r.status === 'rejected').length;
+
+    if (failed === 0) {
+        uploadTriggerBtn.innerText = `✓ ${total} fotoğraf eklendi`;
+    } else {
+        uploadTriggerBtn.innerText = `${total - failed}/${total} yüklendi (${failed} başarısız)`;
+    }
+
+    setTimeout(() => {
         uploadTriggerBtn.innerText = "Fotoğraf Ekle +";
         uploadTriggerBtn.classList.remove('loading');
-        photoUploadInput.value = ""; // Reset
-    }
+    }, 2500);
+
+    photoUploadInput.value = "";
 });
 
 
@@ -877,154 +928,3 @@ function createFireflies() {
 // Başlat
 createFireflies();
 
-// --- YENİ KUTLAMA MANTIĞI ---
-
-const heartsContainer = document.getElementById('hearts-container');
-const candlesContainer = document.getElementById('candles-container');
-const countdownDisplay = document.getElementById('countdown-display');
-const finalMessage = document.getElementById('final-message');
-
-function createContinuousConfetti(durationSeconds) {
-    const colors = ['#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5', '#2196f3', '#03a9f4', '#00bcd4', '#009688', '#4caf50', '#8bc34a', '#cddc39', '#ffeb3b', '#ffc107', '#ff9800', '#ff5722'];
-
-    // Her 100ms'de bir konfeti üret
-    const interval = setInterval(() => {
-        const confetti = document.createElement('div');
-        confetti.classList.add('confetti-item');
-
-        const bg = colors[Math.floor(Math.random() * colors.length)];
-        const left = Math.random() * 100;
-        const animDuration = Math.random() * 3 + 3; // 3-6s düşüş
-        const size = Math.random() * 10 + 5;
-
-        confetti.style.backgroundColor = bg;
-        confetti.style.left = `${left}%`;
-        confetti.style.animationDuration = `${animDuration}s`;
-        confetti.style.width = `${size}px`;
-        confetti.style.height = `${size}px`;
-
-        confettiContainer.appendChild(confetti);
-
-        setTimeout(() => confetti.remove(), animDuration * 1000);
-    }, 100);
-
-    // Süre bitince durdur
-    setTimeout(() => {
-        clearInterval(interval);
-    }, durationSeconds * 1000);
-}
-
-function createHearts(durationSeconds) {
-    const interval = setInterval(() => {
-        const heart = document.createElement('div');
-        heart.classList.add('heart-shape');
-
-        const left = Math.random() * 100;
-        const animDuration = Math.random() * 4 + 4; // 4-8s yükseliş
-        const scale = Math.random() * 1 + 0.5; // 0.5 - 1.5 boyut
-
-        heart.style.left = `${left}%`;
-        heart.style.animation = `floatUp ${animDuration}s linear forwards`;
-        heart.style.transform = `scale(${scale}) rotate(45deg)`;
-
-        heartsContainer.appendChild(heart);
-
-        setTimeout(() => heart.remove(), animDuration * 1000);
-    }, 50); // HIZLANDIRILDI: Her 50ms'de bir kalp
-
-    setTimeout(() => {
-        clearInterval(interval);
-    }, durationSeconds * 1000);
-}
-
-function createBackgroundCandles() {
-    candlesContainer.innerHTML = "";
-    const count = 15; // 15 mum
-
-    for (let i = 0; i < count; i++) {
-        const candle = document.createElement('div');
-        candle.classList.add('bg-candle');
-
-        const h = Math.random() * 60 + 40; // KISA MUMLAR: 40-100px (Metne değmez)
-        const l = Math.random() * 100;
-        const b = Math.random() * 5; // DİBE YAKIN: 0-5% arası
-
-        candle.style.height = `${h}px`;
-        candle.style.left = `${l}%`;
-        candle.style.bottom = `${b}%`;
-
-        const flame = document.createElement('div');
-        flame.classList.add('bg-flame');
-
-        candle.appendChild(flame);
-        candlesContainer.appendChild(candle);
-
-        // Rastgele animasyon gecikmesi
-        flame.style.animationDelay = `${Math.random()}s`;
-
-        // Giriş animasyonu
-        gsap.from(candle, {
-            duration: 2,
-            opacity: 0,
-            y: 50,
-            delay: Math.random() * 1,
-            ease: "power2.out"
-        });
-    }
-}
-
-// YENİ TETİKLEME MANTIĞI
-function triggerNewBirthdaySurprise(callback) {
-    // 1. Ekranı Karart (Modal Active)
-    birthdayModal.classList.add('active');
-
-    const tl = gsap.timeline();
-
-    // 2. Geri Sayım
-    countdownDisplay.style.opacity = 1;
-
-    ["3", "2", "1"].forEach((num, index) => {
-        tl.to(countdownDisplay, {
-            duration: 0.1,
-            opacity: 1,
-            scale: 0.5,
-            innerHTML: num,
-            onStart: () => { countdownDisplay.innerHTML = num; }
-        })
-            .to(countdownDisplay, {
-                duration: 0.9,
-                scale: 1.2,
-                opacity: 0,
-                ease: "power2.out"
-            });
-    });
-
-    // 3. Büyük Yazı ve Mumlar
-    tl.call(() => {
-        createBackgroundCandles();
-        createContinuousConfetti(10); // 10 saniye
-        createHearts(10); // 10 saniye
-
-        gsap.to(finalMessage, {
-            duration: 2,
-            opacity: 1,
-            scale: 1,
-            ease: "elastic.out(1, 0.3)"
-        });
-    });
-
-    // 4. 10 Saniye Sonra Bitiş
-    tl.to({}, { duration: 10 }); // Bekle
-
-    tl.to([birthdayModal, finalMessage], {
-        duration: 1.5,
-        opacity: 0,
-        onComplete: () => {
-            birthdayModal.classList.remove('active');
-            callback();
-
-            // Temizlik
-            candlesContainer.innerHTML = "";
-        }
-    });
-}

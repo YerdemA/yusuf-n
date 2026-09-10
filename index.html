@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Derin Hanım'a Mektuplar</title>
+    <title>Mektuplar</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -71,8 +71,7 @@
 
         <!-- SAHNE 2: SEÇİM -->
         <section id="scene-selection" class="scene">
-            <p class="intro-text" id="intro-text">Sizin için 2 tane mektubumuz var Derin Hanım,<br>önce hangisini okumak
-                istersiniz?</p>
+            <p class="intro-text" id="intro-text">Sizin için 2 tane mektup var,<br>önce hangisini okumak istersiniz?</p>
 
             <div class="envelopes-wrapper">
                 <div class="envelope-container" id="env-1" data-letter="letter1">
@@ -86,7 +85,7 @@
 
                         <div class="flap"></div>
 
-                        <div class="letter-label">Özür Mektubu</div>
+                        <div class="letter-label" id="label-1">Mektup 1</div>
                     </div>
                 </div>
 
@@ -100,7 +99,7 @@
 
                         <div class="flap"></div>
 
-                        <div class="letter-label">16 Aralık</div>
+                        <div class="letter-label" id="label-2">Mektup 2</div>
                     </div>
                 </div>
             </div>
@@ -111,7 +110,7 @@
             <h2 class="album-title">Bizim Hikayemiz</h2>
             <div class="album-controls">
                 <div class="upload-btn" id="upload-trigger-btn"> Fotoğraf Ekle +</div>
-                <input type="file" id="photo-upload-input" accept="image/*" style="display: none;">
+                <input type="file" id="photo-upload-input" accept="image/*" multiple style="display: none;">
                 <div class="back-btn" id="close-album-btn">← Geri Dön</div>
             </div>
 
@@ -134,14 +133,10 @@
             </div>
         </section>
 
-        <!-- DOĞUM GÜNÜ SÜRPRİZİ (YENİ) -->
-        <div id="birthday-modal" class="birthday-modal">
-            <div id="confetti-container"></div>
-            <div id="hearts-container"></div>
-            <div id="candles-container"></div>
-
-            <div class="countdown-display" id="countdown-display"></div>
-            <div class="final-message" id="final-message">İyi ki doğdun,<br>benim güzel Derin'im!</div>
+        <!-- HOŞ GELDİN OVERLAYY (Zarif Sürpriz) -->
+        <div id="welcome-overlay" class="welcome-overlay">
+            <div id="welcome-particles"></div>
+            <div class="welcome-quote" id="welcome-quote"></div>
         </div>
 
         <!-- SAHNE 4: YAZMA MODÜLÜ (MODAL) -->

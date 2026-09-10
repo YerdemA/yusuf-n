@@ -1,4 +1,4 @@
-﻿/* --- GENEL AYARLAR --- */
+/* --- GENEL AYARLAR --- */
 :root {
     --bg-color: #f4e4bc;
     --ink-color: #3e2723;
@@ -941,14 +941,17 @@ body {
     }
 }
 
-/* --- DOÄUM GÃœNÃœ SÃœRPRÄ°ZÄ° --- */
-.birthday-modal {
+
+/* --- HOŞ GELDİN OVERLAY --- */
+.welcome-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.9);
+    background: radial-gradient(ellipse at center,
+        rgba(26, 18, 14, 0.97) 0%,
+        rgba(10, 7, 5, 0.99) 100%);
     z-index: 2000;
     display: flex;
     justify-content: center;
@@ -956,348 +959,63 @@ body {
     flex-direction: column;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 1s ease;
+    pointer-events: none;
 }
 
-.birthday-modal.active {
+.welcome-overlay.active {
     opacity: 1;
     visibility: visible;
+    pointer-events: all;
 }
 
-.cake-container {
-    position: relative;
-    width: 250px;
-    height: 250px;
-    margin-bottom: 50px;
-    transform: scale(0);
-    transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.cake {
-    position: absolute;
-    width: 250px;
-    height: 200px;
-    bottom: 0;
-}
-
-/* Tabak */
-.plate {
-    width: 270px;
-    height: 110px;
-    background-color: #e0e0e0;
-    border-radius: 50%;
-    position: absolute;
-    bottom: -10px;
-    left: -10px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-}
-
-/* Kek KatmanlarÄ± */
-.layer {
-    position: absolute;
-    width: 200px;
-    height: 100px;
-    border-radius: 50%;
-    background-color: #5d4037;
-    /* Ã‡ikolatalÄ± */
-    left: 25px;
-}
-
-.layer-bottom {
-    bottom: 0;
-    height: 120px;
-    background: #4e342e;
-    box-shadow: 0 5px 0 #3e2723;
-}
-
-.layer-middle {
-    bottom: 30px;
-    height: 110px;
-    background: #6d4c41;
-    box-shadow: 0 5px 0 #4e342e;
-}
-
-.layer-top {
-    bottom: 60px;
-    height: 100px;
-    background-color: #8d6e63;
-    box-shadow: inset 0 -10px 20px rgba(0, 0, 0, 0.2);
-}
-
-/* Krema */
-.icing {
-    position: absolute;
-    top: 40px;
-    left: 25px;
-    width: 200px;
-    height: 100px;
-    background-color: #fce4ec;
-    /* Pembe Krema */
-    border-radius: 50%;
-    box-shadow: inset 0 -5px 10px rgba(0, 0, 0, 0.1);
-}
-
-.drip {
-    position: absolute;
-    width: 30px;
-    height: 40px;
-    background-color: #fce4ec;
-    border-radius: 0 0 15px 15px;
-    top: 85px;
-}
-
-.drip1 {
-    left: 45px;
-    height: 35px;
-}
-
-.drip2 {
-    left: 95px;
-    height: 45px;
-}
-
-.drip3 {
-    left: 155px;
-    height: 30px;
-}
-
-/* Mum */
-.candle {
-    position: absolute;
-    top: 0px;
-    left: 115px;
-    width: 20px;
-    height: 60px;
-    background: repeating-linear-gradient(45deg, #ef5350, #ef5350 5px, #fff 5px, #fff 10px);
-    border-radius: 2px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    z-index: 10;
-}
-
-/* AteÅŸ */
-.flame {
-    position: absolute;
-    top: -20px;
-    left: 4px;
-    width: 12px;
-    height: 25px;
-    background: radial-gradient(ellipse at bottom, #ffeb3b, #ff9800);
-    border-radius: 50% 50% 60% 60%;
-    box-shadow: 0 0 20px #ffeb3b;
-    animation: flicker 1s infinite alternate;
-    transform-origin: center bottom;
-}
-
-@keyframes flicker {
-    0% {
-        transform: scale(1) rotate(-2deg);
-        opacity: 0.9;
-    }
-
-    100% {
-        transform: scale(1.1) rotate(2deg);
-        opacity: 1;
-        bottom: 1px;
-    }
-}
-
-/* YazÄ± */
-.birthday-text {
-    font-family: var(--font-hand);
-    color: #fce4ec;
-    font-size: 3rem;
-    text-align: center;
-    margin-top: 30px;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 1s ease 0.5s;
-}
-
-.birthday-modal.active .cake-container {
-    transform: scale(1);
-}
-
-.birthday-modal.active .birthday-text {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Konfeti */
-.confetti {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    background-color: #f00;
-    animation: fall linear forwards;
-}
-
-@keyframes fall {
-    to {
-        transform: translateY(100vh) rotate(720deg);
-    }
-}
-
-/* --- YENÄ° DOÄUM GÃœNÃœ TASARIMI --- */
-
-.countdown-display {
-    font-family: var(--font-hand);
-    /* Veya daha kalÄ±n bir font */
-    font-size: 15rem;
-    color: #fff;
-    text-shadow: 0 0 20px rgba(255, 235, 59, 0.8);
-    opacity: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    transform: scale(0.5);
-    /* Sadece scale kalsÄ±n, GSAP Ã¼stÃ¼ne yazacak zaten */
-    z-index: 2005;
-}
-
-.final-message {
-    font-family: var(--font-hand);
-    font-size: 4rem;
-    color: #fce4ec;
-    text-align: center;
-    text-shadow: 0 0 15px rgba(233, 30, 99, 0.8);
-    opacity: 0;
-    transform: scale(0.8);
-    z-index: 2010;
-    line-height: 1.2;
-    width: 90%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.8);
-}
-
-/* KALP EFEKTÄ° */
-.heart-shape {
-    position: fixed;
-    width: 20px;
-    height: 20px;
-    background-color: #e91e63;
-    pointer-events: none;
-    transform: rotate(45deg);
-    opacity: 0;
-    z-index: 1500;
-}
-
-.heart-shape::before,
-.heart-shape::after {
-    content: '';
-    width: 20px;
-    height: 20px;
-    background-color: #e91e63;
-    border-radius: 50%;
-    position: absolute;
-}
-
-.heart-shape::before {
-    top: -10px;
-    left: 0;
-}
-
-.heart-shape::after {
-    top: 0;
-    left: -10px;
-}
-
-@keyframes floatUp {
-    0% {
-        transform: translateY(100vh) scale(0.5) rotate(45deg);
-        opacity: 0;
-    }
-
-    10% {
-        opacity: 0.8;
-    }
-
-    50% {
-        transform: translateY(50vh) scale(1) rotate(45deg);
-        opacity: 1;
-    }
-
-    100% {
-        transform: translateY(-20vh) scale(0.5) rotate(45deg);
-        opacity: 0;
-    }
-}
-
-/* KONFETÄ° YENÄ° */
-.confetti-item {
-    position: fixed;
-    top: -10px;
-    width: 10px;
-    height: 10px;
-    z-index: 1500;
-    pointer-events: none;
-    animation: fallDown linear forwards;
-}
-
-@keyframes fallDown {
-    to {
-        transform: translateY(110vh) rotate(720deg);
-    }
-}
-
-/* GERÃ‡EKÃ‡Ä° SOYUT MUM (ARKAPLAN) */
-#candles-container {
+#welcome-particles {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1;
-    /* Overlay'in iÃ§inde en altta */
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.sparkle-particle {
+    position: absolute;
+    border-radius: 50%;
+    background: hsl(var(--sp-hue, 45), 90%, 70%);
+    box-shadow: 0 0 6px 2px hsl(var(--sp-hue, 45), 90%, 60%);
+    opacity: 0;
+    animation: sparkle-twinkle var(--sp-duration, 3s) var(--sp-delay, 0s) ease-in-out infinite;
     pointer-events: none;
 }
 
-.bg-candle {
-    position: absolute;
-    bottom: 0px !important;
-    /* Dibe yapÄ±ÅŸÄ±k */
-    width: 40px;
-    height: 120px;
-    /* JS ile deÄŸiÅŸir */
-    background: linear-gradient(to right, #e0e0e0, #fff, #bdbdbd);
-    border-radius: 4px;
-    box-shadow: inset -5px 0 10px rgba(0, 0, 0, 0.1);
+@keyframes sparkle-twinkle {
+    0%   { opacity: 0; transform: scale(0.3); }
+    30%  { opacity: 1; transform: scale(1.2); }
+    60%  { opacity: 0.6; transform: scale(0.8); }
+    100% { opacity: 0; transform: scale(0.3); }
 }
 
-.bg-flame {
-    position: absolute;
-    top: -30px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 16px;
-    height: 35px;
-    background: radial-gradient(ellipse at bottom, #ffeb3b, #ff9800 60%, transparent 100%);
-    border-radius: 50% 50% 60% 60%;
-    box-shadow: 0 0 20px 5px rgba(255, 193, 7, 0.6);
-    animation: flickerBG 0.15s infinite alternate;
-    opacity: 0.9;
+.welcome-quote {
+    font-family: var(--font-hand);
+    font-size: 2.8rem;
+    color: #f5e6d0;
+    text-align: center;
+    line-height: 1.5;
+    text-shadow:
+        0 0 30px rgba(212, 175, 110, 0.5),
+        0 2px 4px rgba(0, 0, 0, 0.8);
+    z-index: 5;
+    width: 80%;
+    max-width: 700px;
+    opacity: 0;
+    letter-spacing: 0.02em;
 }
 
-@keyframes flickerBG {
-    0% {
-        transform: translateX(-50%) scale(1);
-        opacity: 0.9;
-    }
-
-    100% {
-        transform: translateX(-50%) scale(1.05) rotate(1deg);
-        opacity: 1;
-        height: 37px;
-    }
+@media (max-width: 768px) {
+    .welcome-quote { font-size: 1.9rem; }
 }
+
+
 
 /* --- GÄ°RÄ°Å UYGULAMASI --- */
 #scene-login {
